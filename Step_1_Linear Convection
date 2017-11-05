@@ -1,5 +1,0 @@
-import numpy
-from matplotlib import pyplot
-import time, sys
-
-nx = 41 
