@@ -28,7 +28,7 @@ for n in range(nt+1):
 								(c * dt/dx * (un1[j,i] - un1[j-1,i])))
 
 			u1[0,:] = 1
-			u1[-1,:] = 1
+			u1[-1,:] = 1  #-1 means last element
 			u1[:,0] = 1
 			u1[:,-1] = 1
 
@@ -57,7 +57,8 @@ for n in range(nt+1):
 
 
 fig = pyplot.figure(figsize=(11,7),dpi = 100)
-ax2 = fig.gca(projection='3d')
-surf2 = ax2.plot_surface(X,Y,u2[:], cmap=cm.viridis)
-pyplot.show()
+ax = fig.gca(projection='3d')
+X, Y = numpy.meshgrid(x,y)
+surf = ax.plot_surface(X,Y,u2[:], cmap=cm.viridis)
+#pyplot.show()
 

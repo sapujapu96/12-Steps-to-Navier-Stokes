@@ -30,4 +30,22 @@ for n in range (nt+1):
 	row, col = u.shape #returns dimnesions of array u
 	for j in range(1,row):
 		for i in range(1,col):
-			u[j,i] = (un[j,i] - (c*dt/dx *un[j,i]-un[j,i-1])) - 
+			u[j,i] = (un[j,i] - (c*dt/dx *(un[j,i] - un[j,i-1])) -
+								(c*dt/dx *(un[j,i] - un[j-1,i])))
+
+			u[0,:] = 1
+			u[-1,:] = 1
+			u[:,0] = 1
+			u[:,-1] = 1
+
+u = numpy.ones((ny,nx))
+u[int(.5/dy):int(1 / dy +1), int(.5/dx):int(1 / dx +1)] = 2
+
+for n in range(nt + 1): ##loop across number of time steps
+    un = u.copy()
+    u[1:, 1:] = un[1:, 1:] - ((c * dt / dx * (un[1:, 1:] - un[1:, 0:-1])) -
+                              (c * dt / dy * (un[1:, 1:] - un[0:-1, 1:])))
+    u[0, :] = 1
+    u[-1, :] = 1
+    u[:, 0] = 1
+    u[:, -1] = 1
